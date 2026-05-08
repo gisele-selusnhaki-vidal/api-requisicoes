@@ -8,7 +8,7 @@ app.use(express.json());
 
 
 //http://localhost:3000/saudacao?nome=gisele
-app.get("/saudacao",(req,res)=>{
+app.get("/saudacao", (req, res) => {
     const nome = req.query.nome;
 
     if (!nome) {
@@ -25,11 +25,11 @@ app.get("/saudacao",(req,res)=>{
     )
 })
 
-app.post("/imc",(req,res) =>{
-    const { nome, idade, altura, peso }= req.body;
+app.post("/imc", (req, res) => {
+    const { nome, idade, altura, peso } = req.body;
 
-    if(!nome || !idade || !altura || !peso){
-        return res.status(404).json({erro:"Dados incompletos"})
+    if (!nome || !idade || !altura || !peso) {
+        return res.status(404).json({ erro: "Dados incompletos" })
     }
 
     const imc = peso / (altura * altura);
@@ -38,6 +38,22 @@ app.post("/imc",(req,res) =>{
         nome,
         idade,
         imc: imc.toFixed(2)
+    })
+})
+
+app.post("/notas", (req, res) => {
+    const { nota1, nota2, media, peso } = req.body;
+
+    if (!nota1 || !nota2 || !media || !peso) {
+        return res.status(404).json({ erro: "Dados incompletos" })
+    }
+
+    const notas = media / (nota1 + nota2);
+
+    res.json({
+        nota1,
+        nota2,
+        notas: notas
     })
 })
 
