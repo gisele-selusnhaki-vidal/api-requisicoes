@@ -41,19 +41,21 @@ app.post("/imc", (req, res) => {
     })
 })
 
-app.post("/notas", (req, res) => {
-    const { nota1, nota2, media, peso } = req.body;
+app.post("/media", (req, res) => {
+    const { nota1, nota2 } = req.body;
 
-    if (!nota1 || !nota2 || !media || !peso) {
+    if (!nota1 || !nota2) {
         return res.status(404).json({ erro: "Dados incompletos" })
     }
 
-    const notas = media / (nota1 + nota2);
+    const media = (parseFloat(nota1) + parseFloat(nota2)) / 2;
 
     res.json({
         nota1,
-        nota2,
-        notas: notas
+        nota2, 
+        mensagem: media >= 7 ? "aprovado" : "reprovado",
+        media: parseFloat(media)
+      
     })
 })
 
