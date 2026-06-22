@@ -39,7 +39,7 @@ app.post("/clientes", (req, res) => {
         return res.status(404).json({ erro: "Dados incompletos" })
     }
     const clientes = lerClientes();
-    if (clientes.some(c => c.cpf === cpf)) {
+    if (clientes.some(c => c.cpf == cpf)) {
         return res.status(400).json({ erro: "Cliente já cadastrado" })
     }
     const novoCliente = { nome, cpf, cep, rua, cidade, estado, numero };
