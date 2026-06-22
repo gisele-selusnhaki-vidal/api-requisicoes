@@ -1,6 +1,8 @@
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
+const path = require("path");
+
 
 const app = express();
 const port = 3000;
@@ -8,6 +10,43 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
+const clientesFile = path.join(__dirname, "clientes.json");
+
+function salvarClientes(clientes) {
+    fs.writeFileSync(clientesFile, JSON.stringify(clientes, null, 2), "utf8")
+}
+
+function lerClientes() {
+    if (!fs.existsSync(clientesFile)) {
+        return [];
+    }
+
+    const dados = fs.readFileSync(clientesFile, "utf-8")
+
+    try {
+        return JSON.parse(dados) || [];
+    }
+
+    catch (e) {
+        return []
+    }
+}
+
+
+app.post("/clientes", (req, res) => {
+    const { nome, cpf, cep, rua, cidade, estado, numero } = req.body;
+    if (!nome || !cpf || !cep) {
+        return res.status(404).json({ erro: "Dados incompletos" })
+    }
+    const clientes = lerClientes();
+    if (clientes.some(c => c.cpf === cpf)) {
+        return res.status(400).json({ erro: "Cliente já cadastrado" })
+    }
+    const novoCliente = { nome, cpf, cep, rua, cidade, estado, numero };
+    clientes.push(novoCliente);
+    salvarClientes(clientes);
+    return res.status(201).json({ mensagem: "Cliente cadastrado com sucesso" })
+})
 
 //http://localhost:3000/saudacao?nome=gisele
 app.get("/saudacao", (req, res) => {
@@ -70,11 +109,12 @@ app.post("/login", (req, res) => {
     if (email == "admin@admin.com" && senha == "123456") {
         return res.status(200).json({ Sucesso: "Usuario logado" })
     }
-    else( 
-        res.status(404).json({ erro: "Usuario não encontrado" }) 
+    else (
+        res.status(404).json({ erro: "Usuario não encontrado" })
     )
 
 })
+
 
 
 //finalzao
