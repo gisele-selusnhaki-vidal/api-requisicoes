@@ -12,5 +12,32 @@
     "cep": "83601630",
     "rua": "avenida ademar de barros",
     "cidade": "campo largo"
+  },
+  {
+    "nome": "gi",
+    "cpf": "123",
+    "cep": "83601390",
+    "rua": "Avenida Ademar de Barros",
+    "cidade": "Campo Largo",
+    "estado": "Paraná",
+    "numero": "111"
+  },
+  {
+    "nome": "g",
+    "cpf": "1234",
+    "cep": "83601390",
+    "rua": "Avenida Ademar de Barros",
+    "cidade": "Campo Largo",
+    "estado": "Paraná",
+    "numero": "111"
+  },
+  {
+    "nome": "g",
+    "cpf": "12345",
+    "cep": "83601390",
+    "rua": "Avenida Ademar de Barros",
+    "cidade": "Campo Largo",
+    "estado": "Paraná",
+    "numero": "111"
   }
 ]

@@ -35,6 +35,7 @@ function lerClientes() {
 
 app.post("/clientes", (req, res) => {
     const { nome, cpf, cep, rua, cidade, estado, numero } = req.body;
+    console.log(nome,cep,cpf)
     if (!nome || !cpf || !cep) {
         return res.status(404).json({ erro: "Dados incompletos" })
     }
