@@ -116,6 +116,46 @@ app.post("/login", (req, res) => {
 
 })
 
+const usuarioFile = path.join(__dirname, "usuario.json");
+
+function salvar(usuario) {
+    fs.writeFileSync(usuarioFile, JSON.stringify(usuario, null, 2), "utf8")
+}
+
+function lerUsuario() {
+    if (!fs.existsSync(usuarioFile)) {
+        return [];
+    }
+
+    const dados = fs.readFileSync(usuarioFile, "utf-8")
+
+    try {
+        return JSON.parse(dados) || [];
+    }
+
+    catch (e) {
+        return []
+    }
+}
+
+
+app.post("/usuario", (req, res) => {
+    const { nome, cpf, cep, rua, cidade, estado, numero } = req.body;
+    console.log(nome,cep,cpf)
+    if (!nome || !cpf || !cep) {
+        return res.status(404).json({ erro: "Dados incompletos" })
+    }
+    const usuario = lerUsuario();
+    if (usuario.some(c => c.cpf == cpf)) {
+        return res.status(400).json({ erro: "Usuário já cadastrado" })
+    }
+    const novoUsuario = { nome, cpf, cep, rua, cidade, estado, numero };
+    usuario.push(novoUsuario);
+    salvarUsuario(usuario);
+    return res.status(201).json({ mensagem: "Usuário logado com sucesso" })
+})
+
+
 
 
 //finalzao
