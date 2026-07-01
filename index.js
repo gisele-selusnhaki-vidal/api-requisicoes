@@ -118,7 +118,7 @@ app.post("/login", (req, res) => {
 
 const usuarioFile = path.join(__dirname, "usuario.json");
 
-function salvar(usuario) {
+function salvarUsuario(usuario) {
     fs.writeFileSync(usuarioFile, JSON.stringify(usuario, null, 2), "utf8")
 }
 
