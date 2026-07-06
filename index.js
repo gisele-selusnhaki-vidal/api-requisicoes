@@ -107,12 +107,15 @@ app.post("/login", (req, res) => {
         return res.status(404).json({ erro: "Dados incompletos" })
     }
 
-    if (email == "admin@admin.com" && senha == "123456") {
-        return res.status(200).json({ Sucesso: "Usuario logado" })
+    const usuarios = lerUsuario();
+    const usuario = usuario.find( u => u.email === user);
+
+    if (!email || usuario.senha !== senha) {
+        return res.status(401).json({ erro: "E-mail ou senha incorretos." })
     }
-    else (
-        res.status(404).json({ erro: "Usuario não encontrado" })
-    )
+   
+        res.json({ token, mensagem: "Login realizado com sucesso!" })
+    
 
 })
 
@@ -140,16 +143,16 @@ function lerUsuario() {
 
 
 app.post("/usuario", (req, res) => {
-    const { nome, cpf, cep, rua, cidade, estado, numero } = req.body;
-    console.log(nome,cep,cpf)
-    if (!nome || !cpf || !cep) {
+    const { nome, email, senha } = req.body;
+    console.log(nome,email,senha)
+    if (!nome || !email || !senha) {
         return res.status(404).json({ erro: "Dados incompletos" })
     }
     const usuario = lerUsuario();
-    if (usuario.some(c => c.cpf == cpf)) {
+    if (usuario.some(c => c.senha == senha)) {
         return res.status(400).json({ erro: "Usuário já cadastrado" })
     }
-    const novoUsuario = { nome, cpf, cep, rua, cidade, estado, numero };
+    const novoUsuario = { nome, email, senha };
     usuario.push(novoUsuario);
     salvarUsuario(usuario);
     return res.status(201).json({ mensagem: "Usuário logado com sucesso" })
