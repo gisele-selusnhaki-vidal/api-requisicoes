@@ -39,5 +39,14 @@
     "cidade": "Campo Largo",
     "estado": "Paraná",
     "numero": "111"
+  },
+  {
+    "nome": "gisele",
+    "cpf": "737057",
+    "cep": "83601390",
+    "rua": "Avenida Ademar de Barros",
+    "cidade": "Campo Largo",
+    "estado": "Paraná",
+    "numero": "120"
   }
 ]

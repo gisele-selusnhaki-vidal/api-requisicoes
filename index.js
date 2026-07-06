@@ -49,6 +49,9 @@ app.post("/clientes", (req, res) => {
     return res.status(201).json({ mensagem: "Cliente cadastrado com sucesso" })
 })
 
+
+
+
 //http://localhost:3000/saudacao?nome=gisele
 app.get("/saudacao", (req, res) => {
     const nome = req.query.nome;
@@ -118,6 +121,7 @@ app.post("/login", (req, res) => {
     
 
 })
+
 
 const usuarioFile = path.join(__dirname, "usuario.json");
 
