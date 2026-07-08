@@ -111,13 +111,13 @@ app.post("/login", (req, res) => {
     }
 
     const usuarios = lerUsuario();
-    const usuario = usuario.find( u => u.email === user);
+    const usuario = usuarios.find( u => u.email === email);
 
     if (!email || usuario.senha !== senha) {
         return res.status(401).json({ erro: "E-mail ou senha incorretos." })
     }
    
-        res.json({ token, mensagem: "Login realizado com sucesso!" })
+        res.json({ token:"123456", mensagem: "Login realizado com sucesso!" })
     
 
 })
